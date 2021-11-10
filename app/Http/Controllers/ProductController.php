@@ -23,7 +23,7 @@ class ProductController extends Controller
     }
     public function add_product()
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         $cate_product = DB::table('tbl_category_product')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'desc')->get();
         return view('admin.add_product')->with('cate_product', $cate_product)->with('brand_product', $brand_product);
@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     public function all_product()
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         $all_product = DB::table('tbl_product')
             ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
             ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
@@ -42,7 +42,7 @@ class ProductController extends Controller
 
     public function save_product(Request $request)
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_price'] = $request->product_price;
@@ -72,7 +72,7 @@ class ProductController extends Controller
     }
     public function update_product(Request $request, $product_id)
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_price'] = $request->product_price;
@@ -99,7 +99,7 @@ class ProductController extends Controller
     }
     public function unactive_product($product_id)
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         DB::table('tbl_product')->where('product_id', $product_id)->update(['product_status' => 1]);
         session::put('message', 'Không kích hoạt sản phẩm thành công');
         return Redirect::to('all-product');
@@ -107,14 +107,14 @@ class ProductController extends Controller
 
     public function active_product($product_id)
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         DB::table('tbl_product')->where('product_id', $product_id)->update(['product_status' => 0]);
         session::put('message', 'Kích hoạt sản phẩm thành công');
         return Redirect::to('all-product');
     }
     public function edit_product($product_id)
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         $cate_product = DB::table('tbl_category_product')->orderby('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderby('brand_id', 'desc')->get();
         $edit_product = DB::table('tbl_product')->where('product_id', $product_id)->get();
@@ -129,9 +129,27 @@ class ProductController extends Controller
 
     public function delete_product($product_id)
     {
-        $this -> AuthLogin();
+        $this->AuthLogin();
         DB::table('tbl_product')->where('product_id', $product_id)->delete();
         session::put('message', 'Xóa sản phẩm thành công');
         return Redirect::to('all-product');
+    }
+    //End Admin page
+
+    public function details_product($product_id)
+    {
+        $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
+
+        $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderby('brand_id', 'desc')->get();
+
+        $details_product = DB::table('tbl_product')
+            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+            ->where('tbl_product.product_id',$product_id)->get();
+
+        return view('pages.product.show_detail')
+            ->with('category', $cate_product)
+            ->with('brand', $brand_product)
+            ->with('product_details', $details_product);
     }
 }
