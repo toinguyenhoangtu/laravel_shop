@@ -52,7 +52,7 @@ Route::get('/delete-brand-product/{brand_product_id}','BrandProduct@delete_brand
 Route::get('/all-brand-product','BrandProduct@all_brand_product');
 
 Route::post('/save-brand-product','BrandProduct@save_brand_product');
-Route:: post('/update-brand-product/{brand_product_id}','BrandProduct@update_brand_product');
+Route::post('/update-brand-product/{brand_product_id}','BrandProduct@update_brand_product');
 
 Route::get("unactive-brand-product/{brand_product_id}", "BrandProduct@unactive_brand_product");
 Route::get("active-brand-product/{brand_product_id}", "BrandProduct@active_brand_product");
@@ -68,3 +68,8 @@ Route::post('/update-product/{product_id}','ProductController@update_product');
 
 Route::get("unactive-product/{product_id}", "ProductController@unactive_product");
 Route::get("active-product/{product_id}", "ProductController@active_product");
+
+//Cart
+Route::post('/save-cart','CartController@save_cart');
+Route::get('/show-cart','CartController@show_cart');
+Route::get('/delete-to-cart/{rowId}','CartController@delete_cart');
