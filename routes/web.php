@@ -70,6 +70,16 @@ Route::get("unactive-product/{product_id}", "ProductController@unactive_product"
 Route::get("active-product/{product_id}", "ProductController@active_product");
 
 //Cart
-Route::post('/save-cart','CartController@save_cart');
+
 Route::get('/show-cart','CartController@show_cart');
 Route::get('/delete-to-cart/{rowId}','CartController@delete_cart');
+
+Route::post('/update-cart-quantity','CartController@update_cart_quantity');
+Route::post('/save-cart','CartController@save_cart');
+
+//Checkout
+Route::get('/login-checkout','CheckoutController@login_checkout');
+Route::post('/add-customer','CheckoutController@add_customer');
+
+Route::get('/checkout','CheckoutController@checkout');
+;

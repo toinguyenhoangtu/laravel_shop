@@ -11,9 +11,9 @@
             <div class="table-responsive cart_info">
                 <?php
                 $content = Cart::content();
-                echo '<pre>';
-                print_r($content);
-                echo '</pre>';
+                /*  echo '<pre>';
+                                                print_r($content);
+                                                echo '</pre>'; */
                 ?>
                 <table class="table table-condensed">
                     <thead>
@@ -43,15 +43,21 @@
                                 </td>
                                 <td class="cart_quantity">
                                     <div class="cart_quantity_button">
-                                        <a class="cart_quantity_up" href=""> + </a>
-                                        <input class="cart_quantity_input" type="text" name="quantity"
-                                            value="{{ $all_content->qty }}" autocomplete="off" size="2">
-                                        <a class="cart_quantity_down" href=""> - </a>
+                                        <form method="post" action="{{ URL::to('/update-cart-quantity') }}">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="rowId_cart" value="{{ $all_content->rowId }}"
+                                                class="form-control">
+                                            <input class="cart_quantity_input" type="number" name="cart_quantity"
+                                                value="{{ $all_content->qty }}" autocomplete="off" size="2" min=1
+                                                width="20px">
+                                            &nbsp;
+                                            <input type="submit" name="update_qty" value="Cập nhật"
+                                                class="btn btn-success btn-sm">
+                                        </form>
                                     </div>
                                 </td>
                                 <td class="cart_total">
                                     <p class="cart_total_price">
-
                                         <?php
                                         $result = $all_content->price * $all_content->qty;
                                         echo number_format($result) . ' ' . 'VNĐ';
@@ -80,7 +86,7 @@
                     delivery cost.</p>
             </div>
             <div class="row">
-                <div class="col-sm-6">
+                {{-- <div class="col-sm-6">
                     <div class="chose_area">
                         <ul class="user_option">
                             <li>
@@ -133,17 +139,18 @@
                         <a class="btn btn-default update" href="">Get Quotes</a>
                         <a class="btn btn-default check_out" href="">Continue</a>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-sm-6">
                     <div class="total_area">
                         <ul>
-                            <li>Tổng<span>{{ Cart::subtotal() . ' ' . 'vnđ' }}</span></li>
-                            <li>Thuế<span>{{ Cart::tax() . ' ' . 'vnđ' }}</span></li>
+                            <li>Tổng<span>{{ Cart::pricetotal(0, ',', '.') . ' ' . 'vnđ' }}</span></li>
+                            <li>Thuế<span>{{ Cart::tax(0, ',', '.') . ' ' . 'vnđ' }}</span></li>
                             <li>Phí vận chuyển<span>Free</span></li>
-                            <li>Thành tiền<span>{{ Cart::total() . ' ' . 'vnđ' }}</span></li>
+                            <!-- total đã bao gồm thuê (tax) -->
+                            <li>Thành tiền<span>{{ Cart::total(0, ',', '.') . ' ' . 'vnđ' }}</span></li>
                         </ul>
-                        <a class="btn btn-default update" href="">Update</a>
-                        <a class="btn btn-default check_out" href="">Check Out</a>
+                        {{-- <a class="btn btn-default update" href="">Update</a> --}}
+                        <a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
                     </div>
                 </div>
             </div>
