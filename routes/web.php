@@ -82,4 +82,4 @@ Route::get('/login-checkout','CheckoutController@login_checkout');
 Route::post('/add-customer','CheckoutController@add_customer');
 
 Route::get('/checkout','CheckoutController@checkout');
-;
+Route::post('/save-checkout-customer','CheckoutController@save_checkout_customer');
