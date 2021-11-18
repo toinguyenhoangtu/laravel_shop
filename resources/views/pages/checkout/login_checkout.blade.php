@@ -9,14 +9,15 @@
                     <div class="login-form">
                         <!--login form-->
                         <h2>Đăng nhập với tài khoản của bạn</h2>
-                        <form action="#">
-                            <input type="email" name="username_account" placeholder="Email" />
-                            <input type="password" name="password_account" placeholder="Mật khẩu" />
+                        <form action="{{ URL::to('/customer-login') }}" method="post">
+                            {{ @csrf_field() }}
+                            <input type="email" name="username_customer" placeholder="Email" />
+                            <input type="password" name="password_customer" placeholder="Mật khẩu" />
                             <span>
                                 <input type="checkbox" class="checkbox">
                                 Ghi nhớ đăng nhập
                             </span>
-                            <button type="submit" class="btn btn-default">Login</button>
+                            <button type="submit" class="btn btn-default">Đăng nhập</button>
                         </form>
                     </div>
                     <!--/login form-->
