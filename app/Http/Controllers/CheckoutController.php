@@ -42,17 +42,45 @@ class CheckoutController extends Controller
         return view('pages.checkout.show_checkout')->with('brand', $brand_product)
             ->with('category', $cate_product);;
     }
-    public function save_checkout_customer(Request $request){
+    public function save_checkout_customer(Request $request)
+    {
         $data = array();
-        $data['customer_name'] = $request->name;
-        $data['customer_phone'] = $request->phone;
-        $data['customer_email'] = $request->email;
-        $data['customer_password'] = md5($request->password);
+        $data['shipping_name'] = $request->name;
+        $data['shipping_phone'] = $request->phone;
+        $data['shipping_email'] = $request->email;
+        $data['shipping_address'] = $request->address;
+        $data['shipping_notes'] = $request->notes;
 
-        $customerId = DB::table('tbl_customers')->insertGetId($data);
-        Session::put('customer_id', $customerId);
-        Session::put('customer_name', $request->customer_name);
-        return Redirect('/checkout');
+        $shippingId = DB::table('tbl_shipping')->insertGetId($data);
+        Session::put('shipping_id', $shippingId);
+
+        return Redirect('/payment');
     }
+    public function payment()
+    {
+        echo 'ok';
+    }
+    public function logout_checkout()
+    {
+        Session::flush();
+        return Redirect('/login-checkout');
+    }
+    public function login_customer(Request $request)
+    {
+        $email = $request->username_customer;
+        $password = md5($request->password_customer);
 
+        $result = DB::table('tbl_customers')
+            ->where('customer_email', $email)
+            ->where('customer_password', $password)->first();
+
+        if ($result) {
+            Session::put('customer_id', $result->customer_id);
+            return Redirect('/checkout');
+        } else {
+            return Redirect('/login-checkout');
+            Session::put('message', 'Sai tài khoản hoặc mật khẩu');
+        }
+
+    }
 }

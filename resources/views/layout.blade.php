@@ -95,16 +95,43 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-user"></i> Tài
-                                        khoản</a></li>
+
                                 <li><a href="{{ URL::to('/login-account') }}"><i class="fa fa-star"></i> Yêu
                                         thích</a></li>
-                                <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-crosshairs"></i> Thanh
-                                        toán</a></li>
-                                <li><a href="{{ URL::to('/cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ
+                                <?php
+                                        $customer_id = Session::get('customer_id');
+                                        if($customer_id!=NULL){
+                                      ?>
+                                <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-lock"></i>Thanh toán
+                                    </a></li>
+                                <?php
+                                 }else{
+                                      ?>
+                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Thanh
+                                        toán</a>
+                                </li>
+                                <?php
+                                  }
+                                      ?>
+                                <li><a href="{{ URL::to('/show-cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ
                                         hàng</a></li>
-                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i> Đăng
-                                        nhập</a></li>
+                                <?php
+                                        $customer_id = Session::get('customer_id');
+                                        if($customer_id!=NULL){
+                                      ?>
+                                <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-lock"></i>Đăng xuất
+                                    </a></li>
+                                <?php
+                                 }else{
+                                      ?>
+                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Đăng
+                                        nhập</a>
+                                </li>
+                                <?php
+                                  }
+                                      ?>
+
+
                             </ul>
                         </div>
                     </div>
