@@ -18,10 +18,15 @@ Route::get('/','HomeController@index');
 Route::get('/trangchu','HomeController@index');
 //
 Route::get('/gmail1','HomeController@index2');
-// Danh mục sản phẩm trang chủ
+// Serch
+Route::post('/tim-kiem','HomeController@search');
+
+// List product index
 Route::get('/danh-muc-san-pham/{category_id}','CategoryProduct@show_category_home');
 Route::get('/thuong-hieu-san-pham/{brand_id}','BrandProduct@show_brand_home');
 Route::get('/chi-tiet-san-pham/{product_id}','ProductController@details_product');
+
+
 
 //Backend
 //admin index
@@ -79,7 +84,11 @@ Route::post('/save-cart','CartController@save_cart');
 
 //Checkout
 Route::get('/login-checkout','CheckoutController@login_checkout');
+Route::get('/logout-checkout','CheckoutController@logout_checkout');
+
 Route::post('/add-customer','CheckoutController@add_customer');
+Route::post('/login-customer','CheckoutController@login_customer');
 
 Route::get('/checkout','CheckoutController@checkout');
 Route::post('/save-checkout-customer','CheckoutController@save_checkout_customer');
+Route::get('/payment','CheckoutController@payment');
