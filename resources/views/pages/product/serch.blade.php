@@ -2,8 +2,15 @@
 @section('content')
     <div class="features_items">
         <!--features_items-->
-        <h2 class="title text-center">Sản phẩm mới</h2>
-        @foreach ($product as $key => $product)
+        <h2 class="title text-center">KẾT QUẢ TÌM KIẾM</h2>
+        <?php
+        $message = Session::get('message');
+        if ($message) {
+            echo '<span class="text-alert">' . $message . '</span>';
+            Session::put('message', null);
+        }
+        ?>
+        @foreach ($search_product as $key => $product)
             <div class="col-sm-4">
                 <div class="product-image-wrapper">
                     <div class="single-products">
