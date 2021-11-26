@@ -27,6 +27,10 @@
 <!--/head-->
 
 <body>
+    <?php
+    echo Session::get('customer_id');
+    echo Session::get('shipping_id');
+    ?>
     <header id="header">
         <!--header-->
         <div class="header_top">
@@ -36,7 +40,7 @@
                     <div class="col-sm-6">
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
-                                <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i> 0902 955 461</a></li>
                                 <li><a href="{{ URL::to('/gmail1') }}"><i class="fa fa-envelope"></i>
                                         toinguyenhoangtu@gmail.com</a></li>
                             </ul>
@@ -100,13 +104,16 @@
                                         thích</a></li>
                                 <?php
                                         $customer_id = Session::get('customer_id');
-                                        if($customer_id!=NULL){
-                                      ?>
+                                        $shipping_id = Session::get('shipping_id');
+                                        if($customer_id!=NULL && $shipping_id== NULL ){
+                                ?>
                                 <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-lock"></i>Thanh toán
                                     </a></li>
+
                                 <?php
-                                 }else{
+                                 }else if ($customer_id!=NULL && $shipping_id!= NULL){
                                       ?>
+
                                 <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Thanh
                                         toán</a>
                                 </li>
@@ -119,7 +126,8 @@
                                         $customer_id = Session::get('customer_id');
                                         if($customer_id!=NULL){
                                       ?>
-                                <li><a href="{{ URL::to('/checkout') }}"><i class="fa fa-lock"></i>Đăng xuất
+                                <li><a href="{{ URL::to('/login-checkout') }}"><i class="fa fa-lock"></i>Đăng
+                                        xuất
                                     </a></li>
                                 <?php
                                  }else{

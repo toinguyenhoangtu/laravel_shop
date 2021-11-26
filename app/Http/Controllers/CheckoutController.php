@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 session_start();
 
@@ -58,7 +59,10 @@ class CheckoutController extends Controller
     }
     public function payment()
     {
-        echo 'ok';
+        $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
+        $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderby('brand_id', 'desc')->get();
+        return view('pages.checkout.payment')->with('brand', $brand_product)
+            ->with('category', $cate_product);
     }
     public function logout_checkout()
     {
@@ -81,6 +85,39 @@ class CheckoutController extends Controller
             return Redirect('/login-checkout');
             Session::put('message', 'Sai tài khoản hoặc mật khẩu');
         }
+    }
+    public function order_place(Request $request)
+    {
 
+        //insert payment_method
+        $data = array();
+        $data['payment_method'] = $request->payment_options;
+        $data['payment_status'] = "Đang chờ xử lý";
+        $paymentId = DB::table('tbl_payment')->insertGetId($data);
+
+        //insert order
+        $order_data = array();
+        $order_data['customer_id'] = Session::get('customer_id');
+        $order_data['shipping_id'] = Session::get('shipping_id');
+        $order_data['payment_id'] = $paymentId;
+        $order_data['order_total'] = Cart::total();
+        $order_data['order_status'] = "Đang chờ xử lý";
+        $orderId = DB::table('tbl_order')->insertGetId($order_data);
+
+        //insert order details
+        $content = Cart::content();
+        foreach ($content as $key) {
+            $order_data = array();
+            $order_data['order_id'] = $orderId;
+            $order_data['product_id'] = $key->id;
+            $order_data['product_name'] = $key->name;
+            $order_data['product_price'] = $key->price;
+            $order_data['order_product_sales_quantity'] = $key->qty;
+            DB::table('tbl_order_details')->insert($order_data);
+        }
+        if ($data['payment_method'] == 1) {
+            echo 'Thanh toán bằng ATM';
+        } else
+            echo 'Thanh toán bằng tiền mặt';
     }
 }
