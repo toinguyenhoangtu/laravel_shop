@@ -221,10 +221,10 @@
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{ asset('public') }}/frontend/images/girl1.jpg"
+                                    <img src="{{ asset('public') }}/frontend/images/giaynu1.jpg"
                                         class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('public') }}/frontend/images/pricing.png"
-                                        class="pricing" alt="" />
+                                    {{-- <img src="{{ asset('public') }}/frontend/images/pricing.png"
+                                        class="pricing" alt="" /> --}}
                                 </div>
                             </div>
                             <div class="item">
@@ -236,10 +236,10 @@
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{ asset('public') }}/frontend/images/girl2.jpg"
+                                    <img src="{{ asset('public') }}/frontend/images/giaynu2.jpg"
                                         class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('public') }}/frontend/images/pricing.png"
-                                        class="pricing" alt="" />
+                                    {{-- <img src="{{ asset('public') }}/frontend/images/pricing.png"
+                                        class="pricing" alt="" /> --}}
                                 </div>
                             </div>
 
@@ -252,10 +252,10 @@
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{ asset('public') }}/frontend/images/girl3.jpg"
+                                    <img src="{{ asset('public') }}/frontend/images/giaynu3.jpg"
                                         class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('public') }}/frontend/images/pricing.png"
-                                        class="pricing" alt="" />
+                                    {{-- <img src="{{ asset('public') }}/frontend/images/pricing.png"
+                                        class="pricing" alt="" /> --}}
                                 </div>
                             </div>
 

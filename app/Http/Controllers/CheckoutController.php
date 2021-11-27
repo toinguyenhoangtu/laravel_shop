@@ -117,7 +117,13 @@ class CheckoutController extends Controller
         }
         if ($data['payment_method'] == 1) {
             echo 'Thanh toán bằng ATM';
-        } else
-            echo 'Thanh toán bằng tiền mặt';
+        } else {
+            Cart::destroy();
+            $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
+            $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderby('brand_id', 'desc')->get();
+            return view('pages.checkout.handcash')
+                ->with('brand', $brand_product)
+                ->with('category', $cate_product);
+        }
     }
 }

@@ -39,7 +39,7 @@
                 <h2>Xem lại đơn hàng</h2>
             </div>
 
-            <div class="table-responsive cart_info">
+            {{-- <div class="table-responsive cart_info">
                 <table class="table table-condensed">
                     <thead>
                         <tr class="cart_menu">
@@ -156,8 +156,8 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="payment-options">
+            </div> --}}
+            {{-- <div class="payment-options">
                 <span>
                     <label><input type="checkbox"> Direct Bank Transfer</label>
                 </span>
@@ -167,7 +167,7 @@
                 <span>
                     <label><input type="checkbox"> Paypal</label>
                 </span>
-            </div>
+            </div> --}}
         </div>
     </section>
     <!--/#cart_items-->
